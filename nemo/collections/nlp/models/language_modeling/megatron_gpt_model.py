@@ -84,6 +84,7 @@ except (ImportError, ModuleNotFoundError):
 try:
     import transformer_engine
     from transformer_engine.pytorch import module as te_module
+    te_initialize_ub = getattr(te_module, 'initialize_ub', te_module.base.initialize_ub)
 
     HAVE_TE = True
 
@@ -525,7 +526,7 @@ class MegatronGPTModel(MegatronBaseModel, TextGeneration):
                     ub_cfgs = yaml.safe_load(ub_cfg_file)
             except (ImportError, TypeError):
                 logging.error(f"Fail to read ub_tp_comm_overlap config file: {ub_cfg_file_name}.")
-        te_module.base.initialize_ub(
+        te_initialize_ub(
             shape=input_shape,
             tp_size=self.cfg.get('tensor_model_parallel_size'),
             use_fp8=self.cfg.get('fp8'),
