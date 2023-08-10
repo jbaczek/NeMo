@@ -23,7 +23,6 @@ from hydra.core.config_store import ConfigStore
 from hydra.types import TaskFunction
 from omegaconf import DictConfig, OmegaConf
 
-
 def _get_gpu_name():
     try:
         import pynvml
