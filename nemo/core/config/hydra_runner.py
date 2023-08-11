@@ -40,7 +40,6 @@ def _get_gpu_name():
     else:
         return None
 
-
 OmegaConf.register_new_resolver("gpu_name", _get_gpu_name)
 
 # multiple interpolated values in the config
