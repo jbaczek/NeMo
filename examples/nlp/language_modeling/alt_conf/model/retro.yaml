@@ -1,0 +1,46 @@
+defaults:
+  - megatron_model_base_config
+  - tokenizer: retro_tokenizer
+
+version: 1 # indicate the retro model version
+
+# model parallelism 
+micro_batch_size: 4
+tensor_model_parallel_size: 1
+pipeline_model_parallel_size: 1 # has to be one. not supporting pipeline parallel yet
+
+# model architecture
+encoder_seq_length: 2048
+max_position_embeddings: ${.encoder_seq_length}
+
+gradient_as_bucket_view: True # Allocate gradients in a contiguous bucket to save memory (less fragmentation and buffer memory)
+
+dump_debug_info: False # dump out the debug information
+dump_debug_info_to_file: False # dump out the debug information to files
+
+# retro architecture
+chunk_size: 64   # the chunk size used to retrive
+enc_num_layers: 4    # total number of encoder layers
+dec_num_layers: 6    # total number of decoder layers
+enc_cross_attention: [3]    # layer numbers for cross attention in encoder
+dec_cross_attention: [3, 5]    # layer numbers for chunked cross attention in decoder
+add_position_embedding: False   # whether use the absolute position encoding
+
+make_vocab_size_divisible_by: 128 # Pad the vocab size to be divisible by this value for computation efficiency.
+pre_process: True # add embedding
+post_process: True # add pooler
+bert_binary_head: True # BERT binary head
+
+megatron_amp_O2: False # use AMP with O2 style mixed precision instead of native amp on-the-fly weight autocasting.
+grad_allreduce_chunk_size_mb: 125
+hysteresis: 2 # Gradient scale hysteresis
+
+megatron_lm_compatible: False # a flag to indicate whether the model is compatible with Megatron LM
+
+# precision
+native_amp_init_scale: 4294967296 # 2 ** 32
+native_amp_growth_interval: 1000
+fp16_lm_cross_entropy: False # Move the cross entropy unreduced loss calculation for lm head to fp16
+
+# miscellaneous
+seed: 1234

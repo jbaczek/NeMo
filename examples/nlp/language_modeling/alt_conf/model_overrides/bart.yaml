@@ -1,0 +1,10 @@
+name: megatron_bart
+restore_from_path: null # used when starting from a .nemo file
+
+model:
+  optim:
+    lr: 0.0001
+    betas:
+      - 0.9
+      - 0.999
+    eps: 1e-8

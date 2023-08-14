@@ -1,0 +1,6 @@
+library: 'megatron'
+type: 'GPT2BPETokenizer'
+model: null
+vocab_file: null
+merge_file: null 
+delimiter: null # only used for tabular tokenizer

@@ -1,0 +1,7 @@
+library: 'megatron'
+type: 'BertWordPieceLowerCase'
+model: null
+vocab_file: null
+merge_file: null 
+
+

@@ -1,0 +1,31 @@
+# Path to data must be specified by the user.
+# Supports List, String and Dictionary
+# List : can override from the CLI: "model.data.data_prefix=[.5,/raid/data/pile/my-t5_00_text_document,.5,/raid/data/pile/my-t5_01_text_document]",
+# Or see example below: 
+# data_prefix: 
+#   - .5
+#   - /raid/data/pile/my-t5_00_text_document
+#   - .5
+#   - /raid/data/pile/my-t5_01_text_document
+# Dictionary: can override from CLI "model.data.data_prefix"={"train":[1.0, /path/to/data], "validation":/path/to/data, "test":/path/to/test}
+# Or see example below:
+  # "model.data.data_prefix: {train:[1.0,/path/to/data], validation:[/path/to/data], test:[/path/to/test]}"
+data_prefix: ???
+index_mapping_dir: null # path to save index mapping .npy files, by default will save in the same location as data_prefix
+data_impl: mmap # mmap, retmmap, text_mmap, csv_mmap
+splits_string: 949,45,5
+seq_length: ${model.seq_length}
+seq_length_dec: 128
+skip_warmup: True
+num_workers: 0
+dataloader_type: single # cyclic
+masked_lm_prob: 0.15
+dataset_type: 't5'
+short_seq_prob: 0.0
+max_ngram_size: 10
+mean_ngram_size: null
+geometric_dist: True
+permutation: False
+whole_word_masking: True
+favor_longer_ngrams: False
+respect_document_boundaries: True # If true, a single training exampl cannot cross document boundaries, increasing the fraction of <pad> tokens within a batch.

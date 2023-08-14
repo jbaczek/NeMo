@@ -1,0 +1,18 @@
+name: test_retro
+restore_from_path: null # used when starting from a .nemo file
+
+trainer:
+  devices: 2
+  limit_val_batches: null
+  limit_test_batches: null
+
+exp_manager:
+  name: megatron_retro
+  checkpoint_callback_params:
+    filename: 'megatron_retro--{val_loss:.2f}-{step}-{consumed_samples}'
+
+model: 
+  optim:
+    lr: 1e-4
+    sched:
+      min_lr: 1e-5

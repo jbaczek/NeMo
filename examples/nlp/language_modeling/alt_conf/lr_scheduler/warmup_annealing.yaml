@@ -1,0 +1,4 @@
+name: WarmupAnnealing
+min_lr: 0.00001
+last_epoch: -1
+warmup_ratio: 0.01

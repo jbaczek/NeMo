@@ -1,0 +1,21 @@
+# Path to data must be specified by the user.
+# can override from the CLI: "model.data.data_prefix=[.5,/raid/data/pile/my-gpt3_00_text_document,.5,/raid/data/pile/my-gpt3_01_text_document]",
+# Or see example below: 
+# data_prefix: 
+#   - .5
+#   - /raid/data/pile/my-gpt3_00_text_document
+#   - .5
+#   - /raid/data/pile/my-gpt3_01_text_document
+data_prefix: ???
+index_mapping_dir: null # path to save index mapping .npy files, by default will save in the same location as data_prefix
+data_impl: mmap
+splits_string: 900,50,50
+seq_length: ${model.encoder_seq_length}
+skip_warmup: True
+num_workers: 0
+dataloader_type: single  # cyclic, LDDL
+reset_position_ids: False # Reset position ids after end-of-document token
+reset_attention_mask: False # Reset attention mask after end-of-document token
+eod_mask_loss: False # Mask loss for the end of document tokens
+masked_lm_prob: 0.15 # Probability of replacing a token with mask.
+short_seq_prob: 0.1 # Probability of producing a short sequence.

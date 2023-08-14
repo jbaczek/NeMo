@@ -1,0 +1,23 @@
+defaults:
+  - trainer: megatron
+  - exp_manager: megatron
+  # The following entry is artificialy high up the list. This is caused by the fact that ther is model dependent lr_scheduler override.
+  # Hydra doesn't allow defaults list overriding in interpolated subconfigs (model_overrides@_global_: ${model})
+  # So the logical point of overriding the default lr_scheduler is at model's config defaults list
+  # But at the point when override is defined there is onthing to override yet, and hydra crashes. 
+  # The WAR is to pull this item before defining model config, so there will be an entry to override, when the model's defaults list is resolved
+  # Long term solution would be to extract optim and lr_scheduler from the model.
+  # But this can't be done solely for configs. The taxonomical changes in the code have to be done as well
+  - lr_scheduler@model.optim.sched: cosine_annealing
+  - model: ???
+  - optim@model.optim: fused_adam
+  - data@model.data: ${model}_data
+  - model_overrides@_global_: ${model}
+  - _self_
+
+hydra:                                                           
+  searchpath:                                                    
+    - file:///workspace/NeMo/examples/nlp/language_modeling/conf 
+  run:                                                           
+    dir: '.'                                                     
+  output_subdir: null                                            

@@ -1,0 +1,8 @@
+name: megatron_gpt
+restore_from_path: null # used when starting from a .nemo file
+
+trainer:
+  enable_model_summary: False # default PTL callback for this does not support model parallelism, instead we log manually
+exp_manager:
+  checkpoint_callback_params:
+    save_nemo_on_train_end: False # not recommended when training large models on clusters with short time limits

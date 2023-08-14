@@ -1,0 +1,7 @@
+library: 'megatron'
+type: 'BertWordPieceCase'
+model: null
+vocab_file: null
+merge_file: null
+num_sentinel_tokens: 100
+sentencepiece_legacy: True # Legacy=True allows you to add special tokens to sentencepiece tokenizers.
